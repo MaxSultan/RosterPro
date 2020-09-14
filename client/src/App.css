@@ -137,3 +137,30 @@ button:hover{
 .left{
   max-width: 40vw;
 }
+
+#Athletes {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  box-shadow: 3px 3px 3px #225862;
+  flex-grow: 5;
+  flex-shrink: 0;
+  min-width: 400px;
+  margin: 1em;
+}
+
+#Athletes td, #Athletes th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#Athletes tr:nth-child(even){background-color: #f2f2f2;}
+
+#Athletes tr:hover {background-color: #ddd;}
+
+#Athletes th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background:linear-gradient(45deg, #225862, #253646);
+  color: white;
+}
