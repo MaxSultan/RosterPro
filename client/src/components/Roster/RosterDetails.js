@@ -18,7 +18,7 @@ export default function RosterDetails(props) {
         <div key={props.selectedRosterId}>
             <h2><strong>{roster.name}</strong></h2>
             <p>{roster.year}</p>
-            {roster && <Athletes list_id={roster.id} setMessage={props.setMessage}/>}
+            {roster && <Athletes key={roster.id} list_id={roster.id} setMessage={props.setMessage}/>}
         </div>
     )
 }
