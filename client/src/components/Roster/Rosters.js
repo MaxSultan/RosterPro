@@ -11,6 +11,7 @@ export default function Rosters(props) {
             selectedRosterId={props.selectedRosterId}
             />)
     }
+
     return props.rosters.length === 0 ? (
         <div>
             <h1>Current Rosters</h1>
@@ -20,10 +21,10 @@ export default function Rosters(props) {
     (
         <div>
             <table id="rosters">
-            <th colSpan="2">Current Rosters</th>
-            <tbody>
-                    {renderRosters()}
-            </tbody>
+                <th colSpan="2">Current Rosters</th>
+                <tbody>
+                        {renderRosters()}
+                </tbody>
             </table>
             
         </div>

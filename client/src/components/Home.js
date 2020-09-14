@@ -75,6 +75,7 @@ export default function Home() {
         setSelectedRosterId('')
         setSelectedRosterName('')
         setSelectedRosterYear('')
+        setDetails(false)
     }
 
     const ItemSelected = (itemArray, selectedId) => {
@@ -134,6 +135,7 @@ export default function Home() {
             />}
             {details &&
             <RosterDetails
+            setDetails={setDetails}
             selectedRosterId={selectedRosterId}
             setMessage={setMessage}
             />}
