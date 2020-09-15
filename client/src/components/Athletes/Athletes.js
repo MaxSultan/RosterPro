@@ -36,14 +36,6 @@ export default function Athletes(props) {
         .catch(err => props.setMessage(err.message))
     }
 
-    const selectAthlete = (id, f_name, l_name, grade, weight) => {
-        setSelectedAthleteId(id)
-        setSelectedAthleteFirstName(f_name)
-        setSelectedAthleteLastName(l_name)
-        setSelectedAthleteGrade(grade)
-        setSelectedAthleteWeight(weight)
-    }
-
     const deselectAthlete = () => {
         setSelectedAthleteId('')
         setSelectedAthleteFirstName('')
@@ -53,7 +45,14 @@ export default function Athletes(props) {
     }
 
     const renderAthletes = () => {
-        return athletes.map(a => <Athlete {...a} selectAthlete={selectAthlete} selectedAthleteId={selectedAthleteId}/>)
+        return athletes.map(a => <Athlete {...a} 
+            selectedAthleteId={selectedAthleteId}
+            setSelectedAthleteId={setSelectedAthleteId}
+            setSelectedAthleteFirstName={setSelectedAthleteFirstName}
+            setSelectedAthleteLastName={setSelectedAthleteLastName}
+            setSelectedAthleteGrade={setSelectedAthleteGrade}
+            setSelectedAthleteWeight={setSelectedAthleteWeight}
+            />)
     }
 
     const renderAthleteOptions = (itemArray, selectedId) => {
