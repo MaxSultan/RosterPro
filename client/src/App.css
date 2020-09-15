@@ -164,3 +164,7 @@ button:hover{
   background:linear-gradient(45deg, #225862, #253646);
   color: white;
 }
+
+.selected{
+  background-color: blue;
+}

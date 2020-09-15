@@ -8,6 +8,7 @@ export default function AthleteForm(props) {
 
     const handleSubmit = () => {
         props.addAthlete(props.list_id, {first_name: firstName, last_name: lastName, grade: grade, weight: weight})
+        props.setMessage(`${firstName} ${lastName} was added!`)
         props.setAddingAthlete(false)
     }
 

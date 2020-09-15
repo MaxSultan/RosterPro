@@ -2,10 +2,17 @@ import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
 import Athlete from './Athlete'
 import AthleteForm from './AthleteForm'
+import DeleteConfirmation from '../Roster/DeleteConfirmation'
 
 export default function Athletes(props) {
     const [athletes, setAthletes] = useState([])
     const [addingAthlete, setAddingAthlete] = useState(false)
+    const [deletingAthlete, setDeletingAthlete] = useState(false)
+    const [selectedAthleteId, setSelectedAthleteId] = useState('')
+    const [selectedAthleteFirstName, setSelectedAthleteFirstName] = useState('')
+    const [selectedAthleteLastName, setSelectedAthleteLastName] = useState('')
+    const [selectedAthleteGrade, setSelectedAthleteGrade] = useState('')
+    const [selectedAthleteWeight, setSelectedAthleteWeight] = useState('')
 
     useEffect(()=> {
         getAthletes(props.list_id)
@@ -23,8 +30,43 @@ export default function Athletes(props) {
         .catch(err => props.setMessage(err.message))
     }
 
+    const deleteAthlete = (list_id, id) => {
+        Axios.delete(`/api/lists/${list_id}/athletes/${id}`)
+        .then(res => setAthletes(athletes.filter(a => a.id !== res.data.id)))
+        .catch(err => props.setMessage(err.message))
+    }
+
+    const selectAthlete = (id, f_name, l_name, grade, weight) => {
+        setSelectedAthleteId(id)
+        setSelectedAthleteFirstName(f_name)
+        setSelectedAthleteLastName(l_name)
+        setSelectedAthleteGrade(grade)
+        setSelectedAthleteWeight(weight)
+    }
+
+    const deselectAthlete = () => {
+        setSelectedAthleteId('')
+        setSelectedAthleteFirstName('')
+        setSelectedAthleteLastName('')
+        setSelectedAthleteGrade('')
+        setSelectedAthleteWeight('')
+    }
+
     const renderAthletes = () => {
-        return athletes.map(a => <Athlete {...a}/>)
+        return athletes.map(a => <Athlete {...a} selectAthlete={selectAthlete} selectedAthleteId={selectedAthleteId}/>)
+    }
+
+    const renderAthleteOptions = (itemArray, selectedId) => {
+        if(itemArray.map(item => item.id).includes(selectedId)){
+            return(
+            <div className="sideBySide left">
+                {/* <button onClick={() => deleteItemSelected(deletingAthlete, selectedAthleteId)}>Delete Athlete</button> */}
+                {/* <button onClick={() => editItemSelected(selectedRosterId)}>Edit Athlete</button> */}
+                {/* <button onClick={()=> detailsItemSelected(selectedRosterId)}>{details ? 'Hide Athlete' : 'View Athlete'}</button> */}
+                <button onClick={()=> deselectAthlete()}>De-select Athlete</button>
+            </div>
+            )
+        }
     }
     
     return athletes.length > 0 ? (
@@ -42,13 +84,31 @@ export default function Athletes(props) {
                 {athletes.length !== 0 && renderAthletes()}
             </tbody>
         </table>
-        {addingAthlete && <AthleteForm list_id={props.list_id} setAddingAthlete={setAddingAthlete} addAthlete={addAthlete}/>}
+        {renderAthleteOptions(athletes, selectedAthleteId)}
+        {addingAthlete && 
+            <AthleteForm 
+                setMessage={props.setMessage} 
+                list_id={props.list_id} 
+                setAddingAthlete={setAddingAthlete} 
+                addAthlete={addAthlete}
+            />
+        }
+        {deletingAthlete && 
+            <DeleteConfirmation 
+                deleteAthlete={deleteAthlete}
+                selectedAthleteFirstName={selectedAthleteFirstName}
+                selectedAthleteLastName={selectedAthleteLastName}
+                selectedAthleteId={selectedAthleteId}
+                setDeletingAthlete={setDeletingAthlete}
+                setMessage={props.setMessage}
+            />
+        }
         </>
     ) : (
     <>
         <h2>No Athletes</h2>
         <button onClick={()=> setAddingAthlete(true)}>Add Athlete</button>
-        {addingAthlete && <AthleteForm list_id={props.list_id} setAddingAthlete={setAddingAthlete} addAthlete={addAthlete}/>}
+        {addingAthlete && <AthleteForm setMessage={props.setMessage} list_id={props.list_id} setAddingAthlete={setAddingAthlete} addAthlete={addAthlete}/>}
     </>
     )
 }
