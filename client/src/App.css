@@ -169,3 +169,16 @@ button:hover{
   background-color: #E29D15 !important;
   color: white;
 }
+
+.rosterDetails{
+  border: 2px solid black;
+  border-radius: 20px;
+  display: inline-block;
+  padding: 1em;
+}
+
+.right{
+  position: relative;
+  top: -7.5em;
+  right: -22em;
+}

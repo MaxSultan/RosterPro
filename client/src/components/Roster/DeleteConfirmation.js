@@ -18,7 +18,7 @@ export default function DeleteConfirmation(props) {
         <div>
             <h1>Delete Confirmation</h1>
             <p> Are you sure you want to delete {props.selectedRosterName ? props.selectedRosterName : `${props.selectedFirstName} ${props.selectedLastName}`}?</p>
-            <button onClick={props.selectecRosterId ? ()=> finalDelete(props.selectedRosterId) : ()=>finalDelete(props.selectedAthleteId)}>Confirm</button>
+            <button onClick={props.selectedRosterId ? ()=> finalDelete(props.selectedRosterId) : ()=>finalDelete(props.selectedAthleteId)}>Confirm</button>
             <button onClick={()=> props.setDeleting(false)} className="secondaryButton">Cancel</button>
         </div>
     )

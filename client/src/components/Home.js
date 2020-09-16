@@ -98,15 +98,23 @@ export default function Home() {
                 <h1>RosterPro</h1>
                 <button onClick={() => setAdding(true)}>Add Roster</button>
             </section>
-            <section className="left">
-            <Rosters 
-            rosters={rosters}
-            selectedRosterId={selectedRosterId}
-            setSelectedRosterId={setSelectedRosterId}
-            setSelectedRosterName={setSelectedRosterName}
-            setSelectedRosterYear={setSelectedRosterYear}
-            />
-            {ItemSelected(rosters, selectedRosterId)}
+            <section className="sideBySide">
+                <div>
+                <Rosters 
+                rosters={rosters}
+                selectedRosterId={selectedRosterId}
+                setSelectedRosterId={setSelectedRosterId}
+                setSelectedRosterName={setSelectedRosterName}
+                setSelectedRosterYear={setSelectedRosterYear}
+                />
+                {ItemSelected(rosters, selectedRosterId)}
+                </div>
+                {details &&
+                <RosterDetails
+                setDetails={setDetails}
+                selectedRosterId={selectedRosterId}
+                setMessage={setMessage}
+                />}
             </section>
             {adding && 
             <RosterForm 
@@ -132,12 +140,6 @@ export default function Home() {
             selectedRosterYear={selectedRosterYear}
             selectedRosterName={selectedRosterName}
             deleteRoster={deleteRoster}
-            />}
-            {details &&
-            <RosterDetails
-            setDetails={setDetails}
-            selectedRosterId={selectedRosterId}
-            setMessage={setMessage}
             />}
         </div>
     )

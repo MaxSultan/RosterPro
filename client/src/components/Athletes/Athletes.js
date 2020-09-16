@@ -70,7 +70,7 @@ export default function Athletes(props) {
     
     return athletes.length > 0 ? (
         <>
-        <button onClick={()=> setAddingAthlete(true)}>Add Athlete</button>
+        <button className="right" onClick={()=> setAddingAthlete(true)}>Add Athlete</button>
         <table id="Athletes">
             <th colSpan="4">ATHLETES</th>
             <tr>
