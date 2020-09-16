@@ -3,6 +3,7 @@ import React from 'react'
 export default function Athlete(props) {
 
     const selectAthlete = () => {
+        props.setSelectedAthleteListId(props.list_id)
         props.setSelectedAthleteId(props.id)
         props.setSelectedAthleteFirstName(props.first_name)
         props.setSelectedAthleteLastName(props.last_name)

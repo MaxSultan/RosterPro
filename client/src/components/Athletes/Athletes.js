@@ -13,6 +13,7 @@ export default function Athletes(props) {
     const [selectedAthleteLastName, setSelectedAthleteLastName] = useState('')
     const [selectedAthleteGrade, setSelectedAthleteGrade] = useState('')
     const [selectedAthleteWeight, setSelectedAthleteWeight] = useState('')
+    const [selectedAthleteListId, setSelectedAthleteListId] = useState('')
 
     useEffect(()=> {
         getAthletes(props.list_id)
@@ -52,14 +53,21 @@ export default function Athletes(props) {
             setSelectedAthleteLastName={setSelectedAthleteLastName}
             setSelectedAthleteGrade={setSelectedAthleteGrade}
             setSelectedAthleteWeight={setSelectedAthleteWeight}
+            setSelectedAthleteListId={setSelectedAthleteListId}
             />)
     }
+
+    const deleteItemSelected = (id) => {
+        if (id === "")
+            return props.setMessage('Please Select an item to view')
+        return setDeletingAthlete(true)
+    } 
 
     const renderAthleteOptions = (itemArray, selectedId) => {
         if(itemArray.map(item => item.id).includes(selectedId)){
             return(
             <div className="sideBySide left">
-                {/* <button onClick={() => deleteItemSelected(deletingAthlete, selectedAthleteId)}>Delete Athlete</button> */}
+                <button onClick={() => deleteItemSelected(deletingAthlete, selectedAthleteId)}>Delete Athlete</button>
                 {/* <button onClick={() => editItemSelected(selectedRosterId)}>Edit Athlete</button> */}
                 {/* <button onClick={()=> detailsItemSelected(selectedRosterId)}>{details ? 'Hide Athlete' : 'View Athlete'}</button> */}
                 <button onClick={()=> deselectAthlete()}>De-select Athlete</button>
@@ -95,6 +103,7 @@ export default function Athletes(props) {
         {deletingAthlete && 
             <DeleteConfirmation 
                 deleteAthlete={deleteAthlete}
+                selectedAthleteListId={selectedAthleteListId}
                 selectedAthleteFirstName={selectedAthleteFirstName}
                 selectedAthleteLastName={selectedAthleteLastName}
                 selectedAthleteId={selectedAthleteId}
