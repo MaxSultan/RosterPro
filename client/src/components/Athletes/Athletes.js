@@ -8,12 +8,14 @@ export default function Athletes(props) {
     const [athletes, setAthletes] = useState([])
     const [addingAthlete, setAddingAthlete] = useState(false)
     const [deletingAthlete, setDeletingAthlete] = useState(false)
+    const [editingAthlete, setEditingAthlete] = useState(false)
     const [selectedAthleteId, setSelectedAthleteId] = useState('')
     const [selectedAthleteFirstName, setSelectedAthleteFirstName] = useState('')
     const [selectedAthleteLastName, setSelectedAthleteLastName] = useState('')
     const [selectedAthleteGrade, setSelectedAthleteGrade] = useState('')
     const [selectedAthleteWeight, setSelectedAthleteWeight] = useState('')
     const [selectedAthleteListId, setSelectedAthleteListId] = useState('')
+    const [selectedAthleteRank, setSelectedAthleteRank] = useState('')
 
     useEffect(()=> {
         getAthletes(props.list_id)
@@ -37,12 +39,24 @@ export default function Athletes(props) {
         .catch(err => props.setMessage(err.message))
     }
 
+    const editAthlete = (list_id, id, athleteObj) => {
+        Axios.put(`api/lists/${list_id}/athletes/${id}`, athleteObj)
+        .then(res => {
+            const editedAthletes = athletes.map(athlete => {if(athlete.id === res.data.id) return res.data
+                return athlete
+            })
+            setAthletes(editedAthletes)
+        })
+        .catch(err => props.setMessage(err.message))
+    }
+
     const deselectAthlete = () => {
         setSelectedAthleteId('')
         setSelectedAthleteFirstName('')
         setSelectedAthleteLastName('')
         setSelectedAthleteGrade('')
         setSelectedAthleteWeight('')
+        setSelectedAthleteRank('')
     }
 
     const renderAthletes = () => {
@@ -54,6 +68,7 @@ export default function Athletes(props) {
             setSelectedAthleteGrade={setSelectedAthleteGrade}
             setSelectedAthleteWeight={setSelectedAthleteWeight}
             setSelectedAthleteListId={setSelectedAthleteListId}
+            setSelectedAthleteRank={setSelectedAthleteRank}
             />)
     }
 
@@ -68,8 +83,7 @@ export default function Athletes(props) {
             return(
             <div className="sideBySide left">
                 <button onClick={() => deleteItemSelected(deletingAthlete, selectedAthleteId)}>Delete Athlete</button>
-                {/* <button onClick={() => editItemSelected(selectedRosterId)}>Edit Athlete</button> */}
-                {/* <button onClick={()=> detailsItemSelected(selectedRosterId)}>{details ? 'Hide Athlete' : 'View Athlete'}</button> */}
+                <button onClick={() => setEditingAthlete(true)}>Edit Athlete</button>
                 <button onClick={()=> deselectAthlete()}>De-select Athlete</button>
             </div>
             )
@@ -78,9 +92,16 @@ export default function Athletes(props) {
     
     return athletes.length > 0 ? (
         <>
-        <button className="right" onClick={()=> setAddingAthlete(true)}>Add Athlete</button>
+        <div className="rosterHeader">
+            <div>
+                <h1>{props.name}</h1>
+                <p>Year: {props.year}</p>
+            </div>
+            <button onClick={()=> setAddingAthlete(true)}>Add Athlete</button>
+        </div>
+        
         <table id="Athletes">
-            <th colSpan="4">ATHLETES</th>
+            <th colSpan="4">ALL ATHLETES</th>
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -110,6 +131,20 @@ export default function Athletes(props) {
                 setDeletingAthlete={setDeletingAthlete}
                 setMessage={props.setMessage}
             />
+        }
+        {editingAthlete &&
+            <AthleteForm 
+            setMessage={props.setMessage} 
+            list_id={selectedAthleteListId} 
+            id={selectedAthleteId}
+            firstName={selectedAthleteFirstName}
+            lastName={selectedAthleteLastName}
+            grade={selectedAthleteGrade}
+            weight={selectedAthleteWeight}
+            rank={selectedAthleteRank}
+            setEditingAthlete={setEditingAthlete} 
+            editAthlete={editAthlete}
+        />
         }
         </>
     ) : (

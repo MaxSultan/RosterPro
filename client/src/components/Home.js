@@ -76,6 +76,8 @@ export default function Home() {
         setSelectedRosterName('')
         setSelectedRosterYear('')
         setDetails(false)
+        setEditing(false)
+        setDeleting(false)
     }
 
     const ItemSelected = (itemArray, selectedId) => {
@@ -92,22 +94,22 @@ export default function Home() {
     }
 
     return (
-        <div>
+        <div className="home">
             {message !== '' && <Message message={message} />}
             <section className="sideBySide">
                 <h1>RosterPro</h1>
                 <button onClick={() => setAdding(true)}>Add Roster</button>
             </section>
-            <section className="sideBySide">
-                <div>
-                <Rosters 
-                rosters={rosters}
-                selectedRosterId={selectedRosterId}
-                setSelectedRosterId={setSelectedRosterId}
-                setSelectedRosterName={setSelectedRosterName}
-                setSelectedRosterYear={setSelectedRosterYear}
-                />
-                {ItemSelected(rosters, selectedRosterId)}
+            <section>
+                <div className="center">
+                    <Rosters 
+                    rosters={rosters}
+                    selectedRosterId={selectedRosterId}
+                    setSelectedRosterId={setSelectedRosterId}
+                    setSelectedRosterName={setSelectedRosterName}
+                    setSelectedRosterYear={setSelectedRosterYear}
+                    />
+                    {ItemSelected(rosters, selectedRosterId)}
                 </div>
                 {details &&
                 <RosterDetails

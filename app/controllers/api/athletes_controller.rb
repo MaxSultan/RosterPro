@@ -43,6 +43,6 @@ class Api::AthletesController < ApplicationController
     end 
 
     def athlete_params
-        params.require(:athlete).permit(:first_name, :last_name, :grade, :weight)
+        params.require(:athlete).permit(:first_name, :last_name, :grade, :weight, :rank)
     end 
 end

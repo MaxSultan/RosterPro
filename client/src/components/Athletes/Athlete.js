@@ -9,6 +9,7 @@ export default function Athlete(props) {
         props.setSelectedAthleteLastName(props.last_name)
         props.setSelectedAthleteGrade(props.grade)
         props.setSelectedAthleteWeight(props.weight)
+        props.setSelectedAthleteRank(props.rank)
     }
     return (
         <tr className={props.id === props.selectedAthleteId ? "selectedAthlete" : "athlete"} onClick={()=> selectAthlete()}>

@@ -8465,6 +8465,13 @@ react-scripts@3.4.3:
   optionalDependencies:
     fsevents "2.1.2"
 
+react-to-print@^2.10.3:
+  version "2.10.3"
+  resolved "https://registry.yarnpkg.com/react-to-print/-/react-to-print-2.10.3.tgz#397276d04baa6cb50b61b1d08a91d3bb318efe58"
+  integrity sha512-kRRWpMz34s4lqulHVGokQBf8jvfgBzBeyE6duoKgyEyPnPPnvb6HY6o1J/SME5nqpE1iBr6JEWTJBQ2dFBxd9w==
+  dependencies:
+    prop-types "^15.7.2"
+
 react@^17.0.0-rc.0:
   version "17.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.0-rc.1.tgz#2f7575465517153dcd0d6a596f75f200c1612e2a"
