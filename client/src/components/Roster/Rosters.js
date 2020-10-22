@@ -19,14 +19,11 @@ export default function Rosters(props) {
         </div>
     ) :
     (
-        <div>
-            <table id="rosters">
-                <th colSpan="2">Current Rosters</th>
-                <tbody>
-                        {renderRosters()}
-                </tbody>
-            </table>
-            
-        </div>
+        <table id="rosters">
+            <th colSpan="2">Current Rosters</th>
+            <tbody>
+                    {renderRosters()}
+            </tbody>
+        </table>
     )
 }

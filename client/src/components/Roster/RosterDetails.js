@@ -17,11 +17,13 @@ export default function RosterDetails(props) {
 
     return (
         <div key={roster.id} className="rosterDetails">
-            {roster && <Athletes key={roster.id} name={roster.name} year={roster.year} list_id={roster.id} setMessage={props.setMessage}/>}
-            <div className="rosters">
-                {roster && <Varsity key={roster.id} setMessage={props.setMessage} list_id={roster.id}/>}
-                {roster && <JV key={roster.id} setMessage={props.setMessage} list_id={roster.id}/>}
-            </div>
+           {roster &&  <>
+           <Athletes key={roster.id} name={roster.name} year={roster.year} list_id={roster.id} setMessage={props.setMessage}/>
+            {/* <div className="rosters">
+                <Varsity key={roster.id} setMessage={props.setMessage} list_id={roster.id}/>
+                <JV key={roster.id} setMessage={props.setMessage} list_id={roster.id}/>
+            </div> */}
+            </>}
         </div>
     )
 }

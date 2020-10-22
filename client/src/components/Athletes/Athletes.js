@@ -3,6 +3,8 @@ import Axios from 'axios'
 import Athlete from './Athlete'
 import AthleteForm from './AthleteForm'
 import DeleteConfirmation from '../Roster/DeleteConfirmation'
+import Varsity from './Varsity'
+import JV from './JV'
 
 export default function Athletes(props) {
     const [athletes, setAthletes] = useState([])
@@ -16,6 +18,9 @@ export default function Athletes(props) {
     const [selectedAthleteWeight, setSelectedAthleteWeight] = useState('')
     const [selectedAthleteListId, setSelectedAthleteListId] = useState('')
     const [selectedAthleteRank, setSelectedAthleteRank] = useState('')
+    const [showAllAthletes, setShowAllAthletes] = useState(true)
+    const [showVarsity, setShowVarsity] = useState(false)
+    const [showJV, setShowJV] = useState(false)
 
     useEffect(()=> {
         getAthletes(props.list_id)
@@ -23,13 +28,13 @@ export default function Athletes(props) {
 
     const getAthletes = (list_id) => {
         Axios.get(`/api/lists/${list_id}/athletes`)
-        .then(res => setAthletes(res.data))
+        .then(res => setAthletes(res.data.sort(compare)))
         .catch(err => props.setMessage(err.message))
     }
 
     const addAthlete = (list_id, athleteObj) => {
         Axios.post(`/api/lists/${list_id}/athletes`, athleteObj)
-        .then(res => setAthletes([res.data, ...athletes]))
+        .then(res => setAthletes([res.data, ...athletes].sort(compare)))
         .catch(err => props.setMessage(err.message))
     }
 
@@ -45,7 +50,7 @@ export default function Athletes(props) {
             const editedAthletes = athletes.map(athlete => {if(athlete.id === res.data.id) return res.data
                 return athlete
             })
-            setAthletes(editedAthletes)
+            setAthletes(editedAthletes.sort(compare))
         })
         .catch(err => props.setMessage(err.message))
     }
@@ -89,18 +94,52 @@ export default function Athletes(props) {
             )
         }
     }
+
+    const compare = (a, b) => {
+        const athleteA = a.weight;
+        const athleteB = b.weight;
+        let comparison = 0;
+        if (athleteA > athleteB) {
+          comparison = 1;
+        } else if (athleteA < athleteB) {
+          comparison = -1;
+        }
+        return comparison;
+      }
+
+    const viewAllAthletes = () => {
+        setShowAllAthletes(true)
+        setShowVarsity(false)
+        setShowJV(false)
+    }
+    const viewVarsity = () => {
+        setShowAllAthletes(false)
+        setShowVarsity(true)
+        setShowJV(false)
+    }
+    const viewJV = () => {
+        setShowAllAthletes(false)
+        setShowVarsity(false)
+        setShowJV(true)
+    }
     
     return athletes.length > 0 ? (
         <>
         <div className="rosterHeader">
             <div>
                 <h1>{props.name}</h1>
+
                 <p>Year: {props.year}</p>
             </div>
+            <ul className="rosterTabs">
+                    <li className={showAllAthletes ? "selectedTab" : null} onClick={()=> viewAllAthletes()}>All Athletes</li>
+                    <li className={showVarsity ? "selectedTab" : null} onClick={()=> viewVarsity()}>Varsity</li>
+                    <li className={showJV ? "selectedTab" : null} onClick={()=> viewJV()}>Junior Varsity</li>
+            </ul>
             <button onClick={()=> setAddingAthlete(true)}>Add Athlete</button>
         </div>
-        
-        <table id="Athletes">
+        <section className="rosterCollection">
+        {showAllAthletes && <table id="Athletes">
             <th colSpan="4">ALL ATHLETES</th>
             <tr>
                 <th>First Name</th>
@@ -111,7 +150,10 @@ export default function Athletes(props) {
             <tbody>
                 {athletes.length !== 0 && renderAthletes()}
             </tbody>
-        </table>
+        </table>}
+        {showVarsity && <Varsity key={props.list_id} setMessage={props.setMessage} list_id={props.list_id}/>}
+        {showJV && <JV key={props.list_id} setMessage={props.setMessage} list_id={props.list_id}/>}
+        </section>
         {renderAthleteOptions(athletes, selectedAthleteId)}
         {addingAthlete && 
             <AthleteForm 
