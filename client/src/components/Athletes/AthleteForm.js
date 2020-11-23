@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { highSchoolWeights } from '../WeightClass';
 
 export default function AthleteForm(props) {
     const [firstName, setFirstName] = useState(props.firstName ? props.firstName : "")
@@ -19,6 +20,14 @@ export default function AthleteForm(props) {
             props.setMessage(`${firstName} ${lastName} was added!`)
             props.setAddingAthlete(false)
         }
+    }
+
+    const weightClassOptions = (weightClasses) => {
+        return weightClasses.map(weight => {
+            return(
+                <option value={weight}>{weight}</option>
+            )
+        })
     }
 
     return (
@@ -44,21 +53,23 @@ export default function AthleteForm(props) {
                 name="grade"
                 />
                 <label for="weight">Weight Class:</label>
-                <input 
+                <select 
                 value={weight} 
                 onChange={(e) => setWeight(e.target.value)}
                 name="weight"
-                />
+                >
+                {weightClassOptions(highSchoolWeights)}
+                </select>
                 <label for="rank">Rank:</label>
                 <select
                 value={rank} 
                 onChange={(e) => setRank(e.target.value)}
                 name="rank"
                 >
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
+                    <option value={1}>Varsity</option>
+                    <option value={2}>JV</option>
+                    <option value={3}>3rd String</option>
+                    <option value={4}>4th String</option>
                     <option value={5}>5</option>
                     <option value={999}>No Rank</option>
                 </select>

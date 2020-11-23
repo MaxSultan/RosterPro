@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import Axios from 'axios'
 import ReactToPrint from 'react-to-print';
+import { highSchoolWeights } from '../WeightClass';
 
 // Does not currently re-render on editing an athlete
 
@@ -35,7 +36,20 @@ class Varsity extends React.Component{
         try{
         const res = await Axios.get(`/api/lists/${list_id}/athletes`)
             var athletes = res.data.filter(i => i.rank === 1)
-            var sorted = athletes.sort(this.compare)
+            let completedRoster = [];
+            let currentAthlete = null;
+            highSchoolWeights.forEach(weight => {
+                athletes.forEach(athlete => {
+                    if(athlete.weight == weight) currentAthlete = athlete;
+                }) 
+                if (currentAthlete !== null) {
+                    completedRoster.push(currentAthlete)
+                } else {
+                    completedRoster.push({first_name:'',last_name:'', weight: weight, grade: '', rank:2})
+                }
+                currentAthlete = null;
+            })
+            var sorted = completedRoster.sort(this.compare)
             await this.setStateSynchronous(sorted)
         } catch (err){
             this.props.setMessage(err.message)
@@ -46,20 +60,13 @@ class Varsity extends React.Component{
         const { varsityAthletes } = this.state
         return varsityAthletes !== 0 ? varsityAthletes.map(a => (           
         <tr>
-            <td>{a.weight}</td>
-            <td>{a.first_name}</td>
-            <td>{a.last_name}</td>
+            <td id="individual">{a.first_name} {a.last_name} {a.weight} {a.grade}</td>
         </tr>)) : "No Athletes"
     }
     render(){    
         return (
             <table id="varsity">
                 <th colSpan="3">VARSITY</th>
-                <tr>
-                    <th>Weight Class</th>
-                    <th>First Name</th>                    
-                    <th>Last Name</th>
-                </tr>
                 <tbody>
                     {this.state.varsityAthletes.length !== 0 && this.renderVarsityAthletes()}
                 </tbody>
