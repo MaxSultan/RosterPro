@@ -5,6 +5,10 @@ import AthleteForm from './AthleteForm'
 import DeleteConfirmation from '../Roster/DeleteConfirmation'
 import Varsity from './Varsity'
 import JV from './JV'
+import ThirdString from './3rdString';
+import FourthString from './4thString';
+import WeightClass from '../WeightClass'
+
 
 export default function Athletes(props) {
     const [athletes, setAthletes] = useState([])
@@ -95,6 +99,16 @@ export default function Athletes(props) {
         }
     }
 
+    const highSchoolWeights = [106,113,120,132,138,145,152,160,170,182,195,220,285];
+
+    const renderWeights = (weightsArr) => {
+        return weightsArr.map(weight => (
+            <tr>
+                <td>{weight}</td>
+            </tr>
+        ))
+    }
+
     const compare = (a, b) => {
         const athleteA = a.weight;
         const athleteB = b.weight;
@@ -126,33 +140,27 @@ export default function Athletes(props) {
     return athletes.length > 0 ? (
         <>
         <div className="rosterHeader">
-            <div>
-                <h1>{props.name}</h1>
-
-                <p>Year: {props.year}</p>
-            </div>
-            <ul className="rosterTabs">
-                    <li className={showAllAthletes ? "selectedTab" : null} onClick={()=> viewAllAthletes()}>All Athletes</li>
-                    <li className={showVarsity ? "selectedTab" : null} onClick={()=> viewVarsity()}>Varsity</li>
-                    <li className={showJV ? "selectedTab" : null} onClick={()=> viewJV()}>Junior Varsity</li>
-            </ul>
+                <table id="">
+                    <th colSpan="5">
+                        <tr>
+                            <h1>{props.name} {props.year} - {parseInt(props.year) + 1}</h1>
+                        </tr>
+                    </th>
+                   
+                    <tbody>
+                        
+                        <div className="rosterSidebySide">
+                            <WeightClass/>
+                            <Varsity key={props.list_id} setMessage={props.setMessage} list_id={props.list_id}/>
+                            <JV key={props.list_id} setMessage={props.setMessage} list_id={props.list_id}/>
+                            <ThirdString key={props.list_id} setMessage={props.setMessage} list_id={props.list_id}/>
+                            <FourthString key={props.list_id} setMessage={props.setMessage} list_id={props.list_id}/>
+                        </div>
+                    </tbody>
+                </table>
             <button onClick={()=> setAddingAthlete(true)}>Add Athlete</button>
         </div>
         <section className="rosterCollection">
-        {showAllAthletes && <table id="Athletes">
-            <th colSpan="4">ALL ATHLETES</th>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Weight</th>
-                <th>Grade</th>
-            </tr>
-            <tbody>
-                {athletes.length !== 0 && renderAthletes()}
-            </tbody>
-        </table>}
-        {showVarsity && <Varsity key={props.list_id} setMessage={props.setMessage} list_id={props.list_id}/>}
-        {showJV && <JV key={props.list_id} setMessage={props.setMessage} list_id={props.list_id}/>}
         </section>
         {renderAthleteOptions(athletes, selectedAthleteId)}
         {addingAthlete && 

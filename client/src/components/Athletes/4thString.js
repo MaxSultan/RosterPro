@@ -1,16 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Axios from 'axios'
 import ReactToPrint from 'react-to-print';
-import { highSchoolWeights } from '../WeightClass' 
+import { highSchoolWeights } from '../WeightClass';
+
 // Does not currently re-render on editing an athlete
 
 class ComponentToPrint extends React.Component {
     state = {
-        JVAthletes: []
+        fourthStringAthletes: []
     }
 
     componentDidMount(){
-        this.getJVAthletes()
+        this.getfourthStringAthletes()
     }
 
     compare(a, b) {
@@ -25,44 +26,40 @@ class ComponentToPrint extends React.Component {
         return comparison;
       }
 
-    getJVAthletes= () => {
+    getfourthStringAthletes= () => {
         Axios.get(`/api/lists/${this.props.list_id}/athletes`)
         .then(res => {
-            const athletes = res.data.filter(ath => ath.rank === 2)
+            const athletes = res.data.filter(ath => ath.rank === 4)
             let completedRoster = [];
             let currentAthlete = null;
             highSchoolWeights.forEach(weight => {
                 athletes.forEach(athlete => {
-                    // compare the weight to the each athlete in the roster 
-                    // if the weight matches the athletes weight
-                    if(athlete.weight == weight){
-                        currentAthlete = athlete;
-                    } 
+                    if(athlete.weight == weight) currentAthlete = athlete;
                 }) 
-                if (currentAthlete !== null){
+                if (currentAthlete !== null) {
                     completedRoster.push(currentAthlete)
                 } else {
-                    completedRoster.push({first_name:'',last_name:'', weight: weight, grade: '', rank:2})
-                    
+                    completedRoster.push({first_name:'',last_name:'', weight: weight, grade: '', rank: 4})
                 }
                 currentAthlete = null;
             })
+            var sorted = completedRoster.sort(this.compare)
             this.setState({
-            JVAthletes: completedRoster.sort(this.compare)
+            fourthStringAthletes: sorted
             })
         })
         .catch(err => this.props.setMessage(err.message))
     }
 
-    renderJVAthletes = () => {
-        return this.state.JVAthletes !== 0 ? this.state.JVAthletes.map(a => (           
+    renderfourthStringAthletes = () => {
+        return this.state.fourthStringAthletes !== 0 ? this.state.fourthStringAthletes.map(a => (           
             <tr>
                 <td id="individual">{a.first_name} {a.last_name} {a.weight} {a.grade}</td>
             </tr>)) : "No Athletes"
     }
 
     isEmpty = () => {
-        if (this.state.JVAthlete !== 0) return true
+        if (this.state.fourthStringAthlete !== 0) return true
         return false
     }
 
@@ -83,11 +80,11 @@ class ComponentToPrint extends React.Component {
     }
 
     render() {
-        const {JVAthletes} = this.state
+        const {fourthStringAthletes} = this.state
         return this.isEmpty() ? (<table id="varsity">
-        <th colSpan="3">JUNIOR VARSITY</th>
+        <th colSpan="3">4th String</th>
         <tbody>
-            {this.renderJVAthletes()}
+            {this.renderfourthStringAthletes()}
         </tbody>
     </table>) : <p>no athletes</p>}
       ;
@@ -99,7 +96,7 @@ export default function PrintableVarsity(props){
         <div>
             <ComponentToPrint ref={componentRef} {...props} />
             <ReactToPrint
-            trigger={() => <button>Print JV Roster!</button>}
+            trigger={() => <button>Print 4th String Roster!</button>}
             content={() => componentRef.current}
             />
       </div>
