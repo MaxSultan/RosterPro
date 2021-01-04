@@ -4,7 +4,7 @@ class Api::MessagesController < ApplicationController
     def send_message
         @twilio_number =  '+18607859178'
         account_sid = 'ACe9c2b1446c76dc3e8e1e388848c518da' 
-        auth_token = '25e46a83a1353af6e608be449933e3d0' 
+        auth_token = ENV["TWILIO_AUTH_TOKEN"]
         @client = Twilio::REST::Client.new(account_sid, auth_token)
         message = @client.messages.create(
             body: params[:message_body],
@@ -17,7 +17,7 @@ class Api::MessagesController < ApplicationController
     def get_conversation
         @twilio_number =  '+18607859178'
         account_sid = 'ACe9c2b1446c76dc3e8e1e388848c518da' 
-        auth_token = '25e46a83a1353af6e608be449933e3d0' 
+        auth_token = ENV["TWILIO_AUTH_TOKEN"]
         @client = Twilio::REST::Client.new(account_sid, auth_token)
         conversation = []
         @client.messages.list(
@@ -36,7 +36,7 @@ class Api::MessagesController < ApplicationController
     # private 
     # def set_client
     #     account_sid = 'ACe9c2b1446c76dc3e8e1e388848c518da' 
-    #     auth_token = '25e46a83a1353af6e608be449933e3d0' 
+    #     auth_token = ENV['TWILIO_AUTH_TOKEN']
     #     @client = Twilio::REST::Client.new(account_sid, auth_token)
     # end 
 

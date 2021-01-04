@@ -63,6 +63,8 @@ export default function Athletes(props) {
     setSelectedAthleteWeight("");
     setSelectedAthleteRank("");
     setSelectedAthletePhoneNumber("");
+    setEditingAthlete(false);
+    setDeletingAthlete(false);
   };
 
   const deleteItemSelected = (id) => {
