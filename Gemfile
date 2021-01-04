@@ -18,7 +18,7 @@ gem 'puma', '~> 4.1'
 gem "devise_token_auth"
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-
+gem 'twilio-ruby', '~> 5.45.1'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 

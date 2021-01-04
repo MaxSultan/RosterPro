@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import Draggable from "react-draggable";
+import SendMessageForm from "../Message/SendMessageForm.js";
+import Conversation from "../Message/Conversation";
 
 export default function Athlete(props) {
   const [previousRank, setPreviousRank] = useState("");
+  const [sendText, setSendText] = useState(false);
 
   const selectAthlete = () => {
     props.setSelectedAthleteListId(props.list_id);
@@ -12,6 +15,7 @@ export default function Athlete(props) {
     props.setSelectedAthleteGrade(props.grade);
     props.setSelectedAthleteWeight(props.weight);
     props.setSelectedAthleteRank(props.rank);
+    props.setSelectedAthletePhoneNumber(props.phone_number);
   };
 
   async function switchAthletes(listRank) {
@@ -88,7 +92,23 @@ export default function Athlete(props) {
         }
         onClick={() => selectAthlete()}
       >
-        {props.first_name} {props.last_name} {props.weight} {props.grade}
+        {props.first_name} {props.last_name} {props.weight} {props.grade}{" "}
+        <button className="smallBtn" onClick={() => setSendText(true)}>
+          Text
+        </button>
+        {sendText && (
+          <>
+            <Conversation
+              phoneNumber={props.phone_number}
+              sendText={sendText}
+            />
+            <SendMessageForm
+              className="messageForm"
+              setSendText={setSendText}
+              phoneNumber={props.phone_number}
+            />
+          </>
+        )}
       </td>
     </Draggable>
   );

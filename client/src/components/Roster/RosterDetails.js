@@ -24,10 +24,6 @@ export default function RosterDetails(props) {
             list_id={roster.id}
             setMessage={props.setMessage}
           />
-          {/* <div className="rosters">
-                <Varsity key={roster.id} setMessage={props.setMessage} list_id={roster.id}/>
-                <JV key={roster.id} setMessage={props.setMessage} list_id={roster.id}/>
-            </div> */}
         </>
       )}
     </div>

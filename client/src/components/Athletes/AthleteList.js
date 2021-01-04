@@ -91,6 +91,9 @@ class AthleteList extends React.Component {
           setSelectedAthleteGrade={this.props.setSelectedAthleteGrade}
           setSelectedAthleteWeight={this.props.setSelectedAthleteWeight}
           setSelectedAthleteRank={this.props.setSelectedAthleteRank}
+          setSelectedAthletePhoneNumber={
+            this.props.setSelectedAthletePhoneNumber
+          }
           setAddingAthlete={this.props.setAddingAthlete}
           setDeletingAthlete={this.props.setDeletingAthlete}
           setEditingAthlete={this.props.setEditingAthlete}

@@ -145,7 +145,7 @@ button:hover{
 }
 
 .selectedAthlete{
-  background-color: #E29D15 !important;
+  background-color: #E29D15;
   color: white;
 }
 .rosterHeader{
@@ -257,4 +257,37 @@ button:hover{
   border-radius: 5px;
   margin: 10px;
   min-width: 11em;
+}
+
+.smallBtn {
+  padding: 0px;
+  margin: 0px;
+  font-size: 12px;
+}
+
+.messageForm{
+  border-radius: 10px;
+  background-color: white;
+}
+
+.formBackground{
+  height: 100vh;
+  width: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SMSmessageTo{
+  background-color: 'orange' !important;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.SMSmessageFrom{
+  background-color: 'blue' !important;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
 }

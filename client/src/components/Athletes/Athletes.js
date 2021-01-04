@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useReducer } from "react";
 import Axios from "axios";
-import Athlete from "./Athlete";
 import AthleteForm from "./AthleteForm";
 import DeleteConfirmation from "../Roster/DeleteConfirmation";
 import WeightClass from "../WeightClass";
@@ -18,6 +17,9 @@ export default function Athletes(props) {
   const [selectedAthleteWeight, setSelectedAthleteWeight] = useState("");
   const [selectedAthleteListId, setSelectedAthleteListId] = useState("");
   const [selectedAthleteRank, setSelectedAthleteRank] = useState("");
+  const [selectedAthletePhoneNumber, setSelectedAthletePhoneNumber] = useState(
+    ""
+  );
 
   useEffect(() => {
     getAthletes(props.list_id);
@@ -60,6 +62,7 @@ export default function Athletes(props) {
     setSelectedAthleteGrade("");
     setSelectedAthleteWeight("");
     setSelectedAthleteRank("");
+    setSelectedAthletePhoneNumber("");
   };
 
   const deleteItemSelected = (id) => {
@@ -123,6 +126,7 @@ export default function Athletes(props) {
           setAddingAthlete={setAddingAthlete}
           setDeletingAthlete={setDeletingAthlete}
           setEditingAthlete={setEditingAthlete}
+          setSelectedAthletePhoneNumber={setSelectedAthletePhoneNumber}
         />
         <PrintableAthleteList
           key={`${props.list_id}-juniorVarsity`}
@@ -143,6 +147,7 @@ export default function Athletes(props) {
           setAddingAthlete={setAddingAthlete}
           setDeletingAthlete={setDeletingAthlete}
           setEditingAthlete={setEditingAthlete}
+          setSelectedAthletePhoneNumber={setSelectedAthletePhoneNumber}
         />
         <PrintableAthleteList
           key={`${props.list_id}-3rdString`}
@@ -163,6 +168,7 @@ export default function Athletes(props) {
           setAddingAthlete={setAddingAthlete}
           setDeletingAthlete={setDeletingAthlete}
           setEditingAthlete={setEditingAthlete}
+          setSelectedAthletePhoneNumber={setSelectedAthletePhoneNumber}
         />
         <PrintableAthleteList
           key={`${props.list_id}-4thString`}
@@ -183,6 +189,7 @@ export default function Athletes(props) {
           setAddingAthlete={setAddingAthlete}
           setDeletingAthlete={setDeletingAthlete}
           setEditingAthlete={setEditingAthlete}
+          setSelectedAthletePhoneNumber={setSelectedAthletePhoneNumber}
         />
         <button onClick={() => setAddingAthlete(true)}>Add Athlete</button>
       </div>
@@ -217,6 +224,7 @@ export default function Athletes(props) {
           grade={selectedAthleteGrade}
           weight={selectedAthleteWeight}
           rank={selectedAthleteRank}
+          phoneNumber={selectedAthletePhoneNumber}
           setEditingAthlete={setEditingAthlete}
           editAthlete={editAthlete}
         />
