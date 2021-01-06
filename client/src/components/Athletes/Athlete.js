@@ -5,7 +5,6 @@ import Conversation from "../Message/Conversation";
 
 export default function Athlete(props) {
   const [previousRank, setPreviousRank] = useState("");
-  const [sendText, setSendText] = useState(false);
 
   const selectAthlete = () => {
     props.setSelectedAthleteListId(props.list_id);
@@ -93,22 +92,9 @@ export default function Athlete(props) {
         onClick={() => selectAthlete()}
       >
         {props.first_name} {props.last_name} {props.weight} {props.grade}{" "}
-        <button className="smallBtn" onClick={() => setSendText(true)}>
+        <button className="smallBtn" onClick={() => props.setShowTexts(true)}>
           Text
         </button>
-        {sendText && (
-          <>
-            <Conversation
-              phoneNumber={props.phone_number}
-              sendText={sendText}
-            />
-            <SendMessageForm
-              className="messageForm"
-              setSendText={setSendText}
-              phoneNumber={props.phone_number}
-            />
-          </>
-        )}
       </td>
     </Draggable>
   );

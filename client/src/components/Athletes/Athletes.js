@@ -4,6 +4,8 @@ import AthleteForm from "./AthleteForm";
 import DeleteConfirmation from "../Roster/DeleteConfirmation";
 import WeightClass from "../WeightClass";
 import PrintableAthleteList from "./AthleteList.js";
+import SendMessageForm from "../Message/SendMessageForm";
+import Conversation from "../Message/Conversation";
 
 export default function Athletes(props) {
   const [athletes, setAthletes] = useState([]);
@@ -20,6 +22,7 @@ export default function Athletes(props) {
   const [selectedAthletePhoneNumber, setSelectedAthletePhoneNumber] = useState(
     ""
   );
+  const [showTexts, setShowTexts] = useState(false);
 
   useEffect(() => {
     getAthletes(props.list_id);
@@ -129,6 +132,7 @@ export default function Athletes(props) {
           setDeletingAthlete={setDeletingAthlete}
           setEditingAthlete={setEditingAthlete}
           setSelectedAthletePhoneNumber={setSelectedAthletePhoneNumber}
+          setShowTexts={setShowTexts}
         />
         <PrintableAthleteList
           key={`${props.list_id}-juniorVarsity`}
@@ -150,6 +154,7 @@ export default function Athletes(props) {
           setDeletingAthlete={setDeletingAthlete}
           setEditingAthlete={setEditingAthlete}
           setSelectedAthletePhoneNumber={setSelectedAthletePhoneNumber}
+          setShowTexts={setShowTexts}
         />
         <PrintableAthleteList
           key={`${props.list_id}-3rdString`}
@@ -171,6 +176,7 @@ export default function Athletes(props) {
           setDeletingAthlete={setDeletingAthlete}
           setEditingAthlete={setEditingAthlete}
           setSelectedAthletePhoneNumber={setSelectedAthletePhoneNumber}
+          setShowTexts={setShowTexts}
         />
         <PrintableAthleteList
           key={`${props.list_id}-4thString`}
@@ -192,6 +198,7 @@ export default function Athletes(props) {
           setDeletingAthlete={setDeletingAthlete}
           setEditingAthlete={setEditingAthlete}
           setSelectedAthletePhoneNumber={setSelectedAthletePhoneNumber}
+          setShowTexts={setShowTexts}
         />
         <button onClick={() => setAddingAthlete(true)}>Add Athlete</button>
       </div>
@@ -230,6 +237,12 @@ export default function Athletes(props) {
           setEditingAthlete={setEditingAthlete}
           editAthlete={editAthlete}
         />
+      )}
+      {showTexts && (
+        <div className="textContainer">
+          <Conversation phoneNumber={selectedAthletePhoneNumber} />
+          <SendMessageForm setShowTexts={setShowTexts} />
+        </div>
       )}
     </>
   ) : (

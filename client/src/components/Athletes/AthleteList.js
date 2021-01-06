@@ -97,6 +97,7 @@ class AthleteList extends React.Component {
           setAddingAthlete={this.props.setAddingAthlete}
           setDeletingAthlete={this.props.setDeletingAthlete}
           setEditingAthlete={this.props.setEditingAthlete}
+          setShowTexts={this.props.setShowTexts}
         />
       </tr>
     ));

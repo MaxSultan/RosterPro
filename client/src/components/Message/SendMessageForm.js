@@ -20,7 +20,7 @@ export default function SendMessageForm(props) {
         name="body"
       />
       <button type="submit">Send</button>
-      <button onClick={() => props.setSendText(false)}>Cancel</button>
+      <button onClick={() => props.setShowTexts(false)}>Cancel</button>
     </form>
   );
 }

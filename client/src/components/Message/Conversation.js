@@ -15,16 +15,18 @@ export default function Conversation(props) {
   }, []);
   const renderMessages = () => {
     return messages.map((message) => {
+      console.log(message.from === `+1${props.phoneNumber}`);
+
       return (
-        <p
+        <div
           className={
-            props.phoneNumber === message.from
-              ? "SMSmessageFrom"
-              : "SMSmessageTo"
+            message.from === `+1${props.phoneNumber}`
+              ? "smsMessageTo"
+              : "smsMessageFrom"
           }
         >
           {message.body}
-        </p>
+        </div>
       );
     });
   };
