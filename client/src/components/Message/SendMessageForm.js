@@ -7,7 +7,7 @@ export default function SendMessageForm(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     Axios.post(`/api/send_message`, {
-      to: `+1${props.phoneNumber}`,
+      to: props.phoneNumber,
       message_body: body,
     }).then((response) => console.log(response));
   };

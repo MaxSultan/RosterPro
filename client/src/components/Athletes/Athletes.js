@@ -68,6 +68,7 @@ export default function Athletes(props) {
     setSelectedAthletePhoneNumber("");
     setEditingAthlete(false);
     setDeletingAthlete(false);
+    setShowTexts(false);
   };
 
   const deleteItemSelected = (id) => {
@@ -241,7 +242,10 @@ export default function Athletes(props) {
       {showTexts && (
         <div className="textContainer">
           <Conversation phoneNumber={selectedAthletePhoneNumber} />
-          <SendMessageForm setShowTexts={setShowTexts} />
+          <SendMessageForm
+            setShowTexts={setShowTexts}
+            phoneNumber={selectedAthletePhoneNumber}
+          />
         </div>
       )}
     </>

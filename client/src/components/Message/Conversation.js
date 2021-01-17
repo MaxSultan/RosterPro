@@ -8,25 +8,26 @@ export default function Conversation(props) {
       phone_number: `+1${props.phoneNumber}`,
     }).then(({ data }) => {
       let sortedMessages = data.sort(function (a, b) {
-        return a.time - b.time;
+        return new Date(a.time) - new Date(b.time);
       });
       setMessages(sortedMessages);
     });
-  }, []);
+  }, [props.phoneNumber]);
   const renderMessages = () => {
     return messages.map((message) => {
-      console.log(message.from === `+1${props.phoneNumber}`);
-
       return (
-        <div
-          className={
-            message.from === `+1${props.phoneNumber}`
-              ? "smsMessageTo"
-              : "smsMessageFrom"
-          }
-        >
-          {message.body}
-        </div>
+        <>
+          <p className="messageTime">{new Date(message.time).toString()}</p>
+          <div
+            className={
+              message.from === `+1${props.phoneNumber}`
+                ? "smsMessageTo"
+                : "smsMessageFrom"
+            }
+          >
+            {message.body}
+          </div>
+        </>
       );
     });
   };

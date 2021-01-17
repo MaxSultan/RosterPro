@@ -10,21 +10,14 @@ class AthleteList extends React.Component {
   };
 
   componentDidMount() {
-    this.getAthletes(this.props.list_id);
+    this.filterAthetes();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (this.props.allAthletes !== prevProps.allAthletes) {
-      this.getAthletes(this.props.list_id);
+      this.filterAthetes();
     }
-    // if (this.state.athletes !== prevState.athletes) {
-    //   this.getAthletes(this.props.list_id);
-    // }
   }
-
-  rerenderParent = () => {
-    this.forceUpdate();
-  };
 
   setStateSynchronous(stateUpdate) {
     return new Promise((resolve) => {
@@ -32,22 +25,11 @@ class AthleteList extends React.Component {
     });
   }
 
-  compare(a, b) {
-    const athleteA = a.weight;
-    const athleteB = b.weight;
-    let comparison = 0;
-    if (athleteA > athleteB) {
-      comparison = 1;
-    } else if (athleteA < athleteB) {
-      comparison = -1;
-    }
-    return comparison;
-  }
-
-  async getAthletes(list_id) {
+  filterAthetes() {
     try {
-      const res = await Axios.get(`/api/lists/${list_id}/athletes`);
-      var athletes = res.data.filter((i) => i.rank === this.props.rosterRank);
+      var athletes = this.props.allAthletes.filter(
+        (i) => i.rank === this.props.rosterRank
+      );
       let completedRoster = [];
       let currentAthlete = null;
       highSchoolWeights.forEach((weight) => {
@@ -69,10 +51,22 @@ class AthleteList extends React.Component {
         currentAthlete = null;
       });
       var sorted = completedRoster.sort(this.compare);
-      await this.setStateSynchronous(sorted);
+      this.setStateSynchronous(sorted);
     } catch (err) {
       this.props.setMessage(err.message);
     }
+  }
+
+  compare(a, b) {
+    const athleteA = a.weight;
+    const athleteB = b.weight;
+    let comparison = 0;
+    if (athleteA > athleteB) {
+      comparison = 1;
+    } else if (athleteA < athleteB) {
+      comparison = -1;
+    }
+    return comparison;
   }
 
   renderAthletes = () => {
@@ -80,7 +74,6 @@ class AthleteList extends React.Component {
       <tr>
         <Athlete
           {...a}
-          rerenderParent={this.rerenderParent}
           editAthlete={this.props.editAthlete}
           allAthletes={this.props.allAthletes}
           selectedAthleteId={this.props.selectedAthleteId}

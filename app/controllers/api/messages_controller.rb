@@ -22,14 +22,27 @@ class Api::MessagesController < ApplicationController
         conversation = []
         @client.messages.list(
             to: params[:phone_number],
-            from: @twilio_number).each do |message|
-                conversation.push({body: message.body, time: message.date_sent, from: message.from})
-            end 
+            from: @twilio_number
+        ).each do |message|
+            conversation.push({
+                body: message.body, 
+                time: message.date_sent.to_time.utc, 
+                from: message.from, 
+                to: message.to
+            })
+        end 
         @client.messages.list(
             to: @twilio_number,
-            from: params[:phone_number]).each do |message|
-                conversation.push({body: message.body, time: message.date_sent, from: message.from})
-            end
+            from: params[:phone_number]
+        ).each do |message|
+            conversation.push({
+                body: message.body, 
+                time: message.date_sent.to_time.utc, 
+                from: message.from, 
+                to: message.to
+            })
+        end
+        # ret = conversation.sort_by {|message| message.time} 
         render json: conversation
     end 
 

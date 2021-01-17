@@ -32,7 +32,6 @@ export default function Athlete(props) {
     props.editAthlete(props.list_id, props.id, {
       rank: listRank,
     });
-    props.rerenderParent();
   }
 
   const handleStart = (rank) => {

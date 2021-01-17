@@ -329,3 +329,7 @@ button:hover{
   margin-left: auto;
   margin-right: auto;
 }
+
+.messageTime{
+  font-size: 8px;
+}

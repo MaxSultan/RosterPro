@@ -4,14 +4,14 @@ import Athletes from "../Athletes/Athletes";
 
 export default function RosterDetails(props) {
   const [roster, setRoster] = useState("");
-
+  const { selectedRosterId } = props;
   useEffect(() => {
-    Axios.get(`/api/lists/${props.selectedRosterId}`)
+    Axios.get(`/api/lists/${selectedRosterId}`)
       .then((res) => {
         setRoster(res.data);
       })
       .catch((err) => props.setMessage(err));
-  }, [props.selectedRosterId]);
+  }, [selectedRosterId]);
 
   return (
     <div key={roster.id} className="rosterDetails">
