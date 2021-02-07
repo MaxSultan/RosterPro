@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import AthleteForm from "./AthleteForm";
 import DeleteConfirmation from "../Roster/DeleteConfirmation";
@@ -26,7 +26,7 @@ export default function Athletes(props) {
 
   useEffect(() => {
     getAthletes(props.list_id);
-  }, []);
+  }, [props.list_id, athletes]);
 
   const getAthletes = (list_id) => {
     Axios.get(`/api/lists/${list_id}/athletes`)

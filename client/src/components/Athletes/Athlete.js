@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Draggable from "react-draggable";
-import SendMessageForm from "../Message/SendMessageForm.js";
-import Conversation from "../Message/Conversation";
 
 export default function Athlete(props) {
   const [previousRank, setPreviousRank] = useState("");
@@ -23,9 +21,12 @@ export default function Athlete(props) {
       .filter((athlete) => athlete.rank === listRank);
     if (matchedAthleteArray.length > 0) {
       let matchingId = matchedAthleteArray[0].id;
+      console.log(matchingId);
+      // if (matchingId.toString().indexOf("-") !== -1) {
       props.editAthlete(props.list_id, matchingId, {
         rank: previousRank,
       });
+      // }
       let otherCell = document.getElementById(matchingId);
       console.log(otherCell);
     }

@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import Axios from "axios";
 import ReactToPrint from "react-to-print";
 import { highSchoolWeights } from "../WeightClass";
 import Athlete from "./Athlete";
