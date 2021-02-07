@@ -110,6 +110,31 @@ export default function Home() {
                     setSelectedRosterYear={setSelectedRosterYear}
                     />
                     {ItemSelected(rosters, selectedRosterId)}
+                    {adding && 
+                    <RosterForm 
+                    setAdding={setAdding} 
+                    createRoster={createRoster}
+                    setMessage={setMessage}
+                    />}
+                    {editing && 
+                    <RosterForm 
+                    setEditing={setEditing} 
+                    setMessage={setMessage}
+                    editRoster={editRoster}
+                    selectedRosterId={selectedRosterId}
+                    selectedRosterYear={selectedRosterYear}
+                    selectedRosterName={selectedRosterName}
+                    />}
+                    {deleting && 
+                    <DeleteConfirmation 
+                    setDetails={setDetails}
+                    setMessage={setMessage}
+                    setDeleting={setDeleting}
+                    selectedRosterId={selectedRosterId}
+                    selectedRosterYear={selectedRosterYear}
+                    selectedRosterName={selectedRosterName}
+                    deleteRoster={deleteRoster}
+                    />}
                 </div>
                 {details &&
                 <RosterDetails
@@ -118,31 +143,6 @@ export default function Home() {
                 setMessage={setMessage}
                 />}
             </section>
-            {adding && 
-            <RosterForm 
-            setAdding={setAdding} 
-            createRoster={createRoster}
-            setMessage={setMessage}
-            />}
-            {editing && 
-            <RosterForm 
-            setEditing={setEditing} 
-            setMessage={setMessage}
-            editRoster={editRoster}
-            selectedRosterId={selectedRosterId}
-            selectedRosterYear={selectedRosterYear}
-            selectedRosterName={selectedRosterName}
-            />}
-            {deleting && 
-            <DeleteConfirmation 
-            setDetails={setDetails}
-            setMessage={setMessage}
-            setDeleting={setDeleting}
-            selectedRosterId={selectedRosterId}
-            selectedRosterYear={selectedRosterYear}
-            selectedRosterName={selectedRosterName}
-            deleteRoster={deleteRoster}
-            />}
         </div>
     )
 }

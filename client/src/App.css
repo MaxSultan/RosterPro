@@ -22,7 +22,6 @@
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 90%;
-  box-shadow: 3px 3px 3px #225862;
   flex-grow: 5;
   flex-shrink: 0;
   min-width: 400px;
@@ -124,10 +123,8 @@ button:hover{
 #Athletes {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  box-shadow: 3px 3px 3px #225862;
   flex-grow: 5;
   flex-shrink: 0;
-  margin: 1em;
 }
 
 #Athletes td, #Athletes th {
@@ -148,7 +145,7 @@ button:hover{
 }
 
 .selectedAthlete{
-  background-color: #E29D15 !important;
+  background-color: #E29D15;
   color: white;
 }
 .rosterHeader{
@@ -179,27 +176,23 @@ button:hover{
   right: -22em;
 }
 
-#varsity {
+.list {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  box-shadow: 3px 3px 3px #225862;
-  flex-grow: 5;
+  flex-grow: 1;
   flex-shrink: 0;
-  margin: 1em;
 }
 
-#varsity td, #varsity th {
+.list td, .list th {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-#varsity tr:nth-child(even){background-color: #f2f2f2;}
+.list tr:nth-child(even){background-color: #f2f2f2;}
 
-#varsity tr:hover {background-color: #ddd;}
+.list tr:hover {background-color: #ddd;}
 
-#varsity th {
-  padding-top: 12px;
-  padding-bottom: 12px;
+.list th {
   text-align: left;
   background:linear-gradient(45deg, #225862, #253646);
   color: white;
@@ -227,32 +220,116 @@ button:hover{
   align-items: center;
 }
 
-.rosterTabs{
+.rosterSidebySide {
   display: flex;
   justify-content: center;
-  align-items: center;
-  list-style: none;
-  width: 25em;
+  align-items: flex-start;
 }
 
-.rosterTabs li {
-  padding: 1em;
-  border-right: 2px solid black;
-  border-bottom: 2px solid black;
-  border-radius: 10px 10px 0px 0px;
+#weights {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  flex-grow: 5;
+  flex-shrink: 0;
+}
+
+#weights td, #weights th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#weights tr:nth-child(odd){background-color: #f2f2f2;}
+
+#weights tr:hover {background-color: #ddd;}
+
+#weights th {
+  text-align: left;
+  background:linear-gradient(45deg, #225862, #253646);
+  color: white;
+}
+
+#individual{
   box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
   0 2px 2px rgba(0,0,0,0.12), 
   0 4px 4px rgba(0,0,0,0.12), 
   0 8px 8px rgba(0,0,0,0.12),
   0 16px 16px rgba(0,0,0,0.12);
+  border-radius: 5px;
+  margin: 10px;
+  min-width: 11em;
 }
 
-.selectedTab{
-  background: linear-gradient(#e4e4e4, #fff);
-  border-bottom: none !important;
-  border-top: 2px solid black;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
-  border-radius: 10px 10px 0px 0px !important;
-  box-shadow: none !important;
+.smallBtn {
+  padding: 0px;
+  margin: 0px;
+  font-size: 12px;
+}
+
+.messageForm{
+  border-radius: 10px;
+  background-color: white;
+}
+
+.formBackground{
+  height: 100vh;
+  width: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.smsMessageTo{
+  background-color: gray;
+  color: white;
+  border-radius: 10px;
+  padding: 8px;
+  margin: 5px;
+  max-width: 20%;
+}
+
+.smsMessageTo::before{
+  content: '';
+  /* position: relative;
+  left: 0%;
+  top: 10%; */
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid gray;
+  clear: both;
+}
+
+.smsMessageFrom{
+  background-color: blue;
+  color: white;
+  border-radius: 10px;
+  padding: 8px;
+  margin: 5px;
+  max-width: 20%;
+}
+
+.smsMessageFrom::after{
+  content: '';
+  /* position: absolute;
+  left: -40px;
+  top: 10%; */
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid blue;
+  clear: both;
+}
+
+.textContainer{
+  display: flex;
+  justify-content:center;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.messageTime{
+  font-size: 8px;
 }
