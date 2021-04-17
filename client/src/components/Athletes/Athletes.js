@@ -26,7 +26,7 @@ export default function Athletes(props) {
 
   useEffect(() => {
     getAthletes(props.list_id);
-  }, [props.list_id, athletes]);
+  }, [props.list_id]);
 
   const getAthletes = (list_id) => {
     Axios.get(`/api/lists/${list_id}/athletes`)

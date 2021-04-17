@@ -114,7 +114,11 @@ export default function PrintableAthleteList(props) {
     <div>
       <AthleteList ref={componentRef} {...props} />
       <ReactToPrint
-        trigger={() => <button>Print {props.rosterName} Roster!</button>}
+        trigger={() => (
+          <button className="athletePrintButton">
+            Print {props.rosterName} Roster!
+          </button>
+        )}
         content={() => componentRef.current}
       />
     </div>

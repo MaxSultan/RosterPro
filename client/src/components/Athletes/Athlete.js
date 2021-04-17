@@ -40,6 +40,16 @@ export default function Athlete(props) {
     setPreviousRank(rank);
   };
 
+  const shouldTextButtonRender = () => {
+    if (props.grade !== "") {
+      return (
+        <button className="smallBtn" onClick={() => props.setShowTexts(true)}>
+          Text
+        </button>
+      );
+    }
+  };
+
   const handleStop = (e, id) => {
     console.log(document.getElementById("Varsity").getBoundingClientRect());
     const varsityBounds = document
@@ -91,10 +101,10 @@ export default function Athlete(props) {
         }
         onClick={() => selectAthlete()}
       >
-        {props.first_name} {props.last_name} {props.weight} {props.grade}{" "}
-        <button className="smallBtn" onClick={() => props.setShowTexts(true)}>
-          Text
-        </button>
+        {props.first_name} {props.last_name}
+        {/* {props.weight} {props.grade}{" "} */}
+        {/* {TODO: add a hover that displays a box with more athlete information} */}
+        {shouldTextButtonRender()}
       </td>
     </Draggable>
   );

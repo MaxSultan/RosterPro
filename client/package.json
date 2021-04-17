@@ -3,11 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "axios": "^0.20.0",
     "cra-template": "1.0.3",
     "react": "^17.0.0-rc.0",
     "react-dom": "^17.0.0-rc.0",
     "react-draggable": "^4.4.3",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-to-print": "^2.10.3"
   },
