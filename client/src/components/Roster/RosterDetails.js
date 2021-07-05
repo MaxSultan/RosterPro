@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import Athletes from "../Athletes/Athletes";
+import EventForm from "../Events/EventForm";
 
-export default function RosterDetails(props) {
+export default function RosterDetails({
+  selectedRosterId,
+  setMessage,
+  setDetails,
+}) {
   const [roster, setRoster] = useState("");
-  const { selectedRosterId } = props;
+  const [addingEvent, setAddingEvent] = useState(false);
+  // const { selectedRosterId } = props;
+
   useEffect(() => {
     Axios.get(`/api/lists/${selectedRosterId}`)
       .then((res) => {
         setRoster(res.data);
       })
-      .catch((err) => props.setMessage(err));
+      .catch((err) => setMessage(err));
   }, [selectedRosterId]);
 
   return (
@@ -22,9 +29,17 @@ export default function RosterDetails(props) {
             name={roster.name}
             year={roster.year}
             list_id={roster.id}
-            setMessage={props.setMessage}
+            setMessage={setMessage}
           />
+          <button onClick={() => setDetails(false)}>close</button>
+          <button onClick={() => setAddingEvent(true)}>
+            Create a New Event
+          </button>
         </>
+      )}
+
+      {addingEvent && (
+        <EventForm setAddingEvent={setAddingEvent} list_id={selectedRosterId} />
       )}
     </div>
   );

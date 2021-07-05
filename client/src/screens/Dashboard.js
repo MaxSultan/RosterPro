@@ -57,43 +57,45 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="background">
-      <header className="sideBySide">
-        <h1>Dashboard</h1>
-        <input placeholder="Search" className="searchBar" />
-      </header>
-      <div className="mainDash">
-        <div className="sideIcons">
-          <FontAwesomeIcon
-            icon="chart-pie"
-            size="2x"
-            className={rostersVisible && "activeIcon dashIcon"}
-          />
-          <FontAwesomeIcon icon="info-circle" size="2x" className="dashIcon" />
-          <div className="circle dashIcon">
-            <FontAwesomeIcon icon="comments" />
-          </div>
-          <div className="circle dashIcon">
-            <FontAwesomeIcon icon="home" />
-          </div>
+    <div className="background icon-align">
+      <div className="sideIcons">
+        <FontAwesomeIcon
+          icon="chart-pie"
+          size="2x"
+          className={rostersVisible && "activeIcon dashIcon"}
+        />
+        <FontAwesomeIcon icon="info-circle" size="2x" className="dashIcon" />
+        <div className="circle dashIcon">
+          <FontAwesomeIcon icon="comments" />
         </div>
-        <section className="dashOverview">
-          <h2>Overview</h2>
-          {rostersVisible && <Home />}
-        </section>
-        <section className="allTexts">
-          <div className="messageTitle">
-            <h1>Messages</h1>
-          </div>
-          {Object.keys(texts).length > 0 && <div>{renderTexts()}</div>}
-          <div className="endOfMessages"></div>
-        </section>
-        {showTexts && (
-          <TextsFromContact
-            allTexts={texts[currentContact]}
-            setShowTexts={setShowTexts}
-          />
-        )}
+        <div className="circle dashIcon">
+          <FontAwesomeIcon icon="home" />
+        </div>
+      </div>
+      <div className="dash-foreground">
+        <header className="dash-header">
+          <h1>Dashboard</h1>
+          <input placeholder="Search" className="searchBar" />
+        </header>
+        <div className="mainDash">
+          <section className="dashOverview">
+            <h2>Overview</h2>
+            {rostersVisible && <Home />}
+          </section>
+          <section className="allTexts">
+            <div className="messageTitle">
+              <h1>Messages</h1>
+            </div>
+            {Object.keys(texts).length > 0 && <div>{renderTexts()}</div>}
+            <div className="endOfMessages"></div>
+          </section>
+          {showTexts && (
+            <TextsFromContact
+              allTexts={texts[currentContact]}
+              setShowTexts={setShowTexts}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

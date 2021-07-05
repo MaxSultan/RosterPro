@@ -80,19 +80,23 @@ export default function Home() {
   const ItemSelected = (itemArray, selectedId) => {
     if (itemArray.map((item) => item.id).includes(selectedId)) {
       return (
-        <div className="sideBySide left">
-          <button
-            onClick={() => deleteItemSelected(deleting, selectedRosterId)}
-          >
-            Delete Roster
-          </button>
-          <button onClick={() => editItemSelected(selectedRosterId)}>
-            Edit Roster
-          </button>
-          <button onClick={() => detailsItemSelected(selectedRosterId)}>
-            {details ? "Hide Roster" : "View Roster"}
-          </button>
-          <button onClick={() => deselectItem()}>De-select</button>
+        <div className="center-flex left">
+          <div className="sideBySide">
+            <button
+              onClick={() => deleteItemSelected(deleting, selectedRosterId)}
+            >
+              Delete Roster
+            </button>
+            <button onClick={() => editItemSelected(selectedRosterId)}>
+              Edit Roster
+            </button>
+          </div>
+          <div className="sideBySide">
+            <button onClick={() => detailsItemSelected(selectedRosterId)}>
+              {details ? "Hide Roster" : "View Roster"}
+            </button>
+            <button onClick={() => deselectItem()}>De-select</button>
+          </div>
         </div>
       );
     }
@@ -149,9 +153,11 @@ export default function Home() {
             setDetails={setDetails}
             selectedRosterId={selectedRosterId}
             setMessage={setMessage}
+            setDetails={setDetails}
           />
         )}
       </section>
+      <div className="dark-mode-button"></div>
     </div>
   );
 }
